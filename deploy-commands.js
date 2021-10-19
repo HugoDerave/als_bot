@@ -6,7 +6,7 @@ const { Routes } = require('discord-api-types/v9');
 module.exports = {
 
     deployCommands : (ctx) => {
-        
+
         //TODO: Dynamic legends from gateway
         let legends = ["Octane", "Wraith", "Bloodhound", "Pathfinder", "Lifeline", "Valkyrie", "Bangalore", "Caustic", "Horizon", "Loba", "Fuse", "Gibraltar", "Seer", "Mirage", "Revenant", "Rampart", "Wattson", "Crypto"];
         legends.sort();
@@ -41,13 +41,10 @@ module.exports = {
 
         }else if(process.env.ENV === "prod"){
 
-            for(let [guildID, guildValue] of ctx.guilds.cache.entries()){
-
-                rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildValue.id), {body: commands})
+                rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {body: commands})
                     .then(() => console.log('Successfully registered application commands for Guild ' + guildValue.name + " (" + guildValue.id + ")"))
                     .catch(console.error);
 
-            }
         }
     }
 }
